@@ -36,7 +36,7 @@ function Segment(p1, p2) {
 Segment.prototype.draw = function() {
     push();
     fill(this.color);
-    noStroke();
+	stroke(this.color);
     line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
     this.p1.draw();
     this.p2.draw();
