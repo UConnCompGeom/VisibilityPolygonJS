@@ -5,6 +5,11 @@
 var pset = new Set();
 var eset = new Set();
 
+
+///////////////////////////////
+// Classes
+///////////////////////////////
+
 function Point(x, y, label="") {
     this.x = x;
     this.y = y;
@@ -62,6 +67,11 @@ Vector.prototype.draw = function() {
     pop();
 };
 
+
+///////////////////////////////
+// Functions
+///////////////////////////////
+
 function det(v1, v2) {
     return (v1.x * v2.y) - (v2.x * v1.y);
 }
@@ -97,4 +107,19 @@ x is a Point
 */
 function linesidetest(segment, x) {
     return ccw(segment.p1, segment.p2, x);
+}
+
+
+/*
+Given the points of two line sigments, we can determine if they intersect
+
+a & b: line 1
+c & d: line 2
+*/
+function cross(a, b, c, d) {
+    return (ccw(a,b,c) - ccw(a,b,d) * Math.abs(ccw(c,d,a) - ccw(c,d,b)))/4;
+}
+
+function segcross(seg1, seg2) {
+    return cross(seg1.p1, seg1.p2, seg2.p1, seg2.p2);
 }
