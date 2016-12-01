@@ -72,8 +72,16 @@ Vector.prototype.draw = function() {
 // Functions
 ///////////////////////////////
 
+function basic_det(a,b,c,d) {
+  return (a * d) - (b * c);
+}
+
 function det(v1, v2) {
-    return (v1.x * v2.y) - (v2.x * v1.y);
+    return basic_det(v1.x,v1.y,v2.x,v2.y);
+}
+
+function projected_det(v1,v2,v3) {
+  return v1.x * (v2.y - v3.y) - v1.y * (v2.x - v3.x) + (v2.x * v3.y - v2.y * v3.x);
 }
 
 function sign(num) {
@@ -88,7 +96,6 @@ function sign(num) {
 
 /*
 a b c are Points
-
 Counter-clockwise 1
 Clockwise -1
 Collinear 0
@@ -101,7 +108,6 @@ function ccw(a, b, c) {
 
 /*
 If above or below a line segment
-
 segment is a Segment
 x is a Point
 */
@@ -112,7 +118,6 @@ function linesidetest(segment, x) {
 
 /*
 Given the points of two line sigments, we can determine if they intersect
-
 a & b: line 1
 c & d: line 2
 */
@@ -122,4 +127,41 @@ function cross(a, b, c, d) {
 
 function segcross(seg1, seg2) {
     return cross(seg1.p1, seg1.p2, seg2.p1, seg2.p2);
+}
+
+function intersection_on_border(seg, border) {
+  if (border.p1.x == border.p2.x) {
+    if (Math.abs(seg.p1.x - seg.p2.x) < .0001) {
+      return new Point(0,0,"null");
+    }
+    m = (seg.p2.y - seg.p1.y)/(seg.p2.x - seg.p1.x);
+    b = seg.p1.y - m * seg.p1.x;
+
+    return new Point(border.p1.x,m*border.p1.x + b);
+  } else {
+    if (Math.abs(seg.p1.y - seg.p2.y) < .0001) {
+      return new Point(0,0,"null");
+    }
+    if (Math.abs(seg.p1.x - seg.p2.x) < .0001) {
+      return new Point(seg.p1.x,border.p1.y);
+    }
+    m = (seg.p2.y - seg.p1.y)/(seg.p2.x - seg.p1.x);
+    b = seg.p1.y - m * seg.p1.x;
+
+    return new Point((border.p1.y-b)/m,border.p1.y);
+  }
+}
+
+function angle(a,b,c) {
+    var ab = Math.sqrt(Math.pow(b.x-a.x,2)+ Math.pow(b.y-a.y,2));    
+    var bc = Math.sqrt(Math.pow(b.x-c.x,2)+ Math.pow(b.y-c.y,2)); 
+    var ac = Math.sqrt(Math.pow(c.x-a.x,2)+ Math.pow(c.y-a.y,2));
+    val = (bc*bc+ab*ab-ac*ac)/(2*bc*ab);
+    if (Math.abs(1-val) < .001) {
+      val = 1;
+    }
+    if (Math.abs(-1-val) < .001) {
+      val = -1;
+    }
+    return Math.acos(val);
 }
