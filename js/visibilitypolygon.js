@@ -29,14 +29,19 @@ Source.prototype.draw = function() {
 function drawRays(source) {
     for (var p of pset) {
         intersect = false;
+        halfintersects = 0;
         seg = new Segment(source, p);
         for (i = 0; i < lines.length; i++) {
-          if (segcross(seg,lines[i]) == 1) {
+          intersection_value = segcross(seg,lines[i]);
+          if (Math.abs(intersection_value) == 1) {
             intersect = true;
             break;
           }
+          if (Math.abs(intersection_value) == .5) {
+            halfintersects += intersection_value;
+          }
         }
-        if (!intersect) {
+        if (!intersect && halfintersects == 0) {
           seg.draw();
         }
     }
@@ -67,7 +72,10 @@ function setup() {
              new Segment(new Point(150,250),new Point(200,200)),
              new Segment(new Point(200,200),new Point(200,150)),
              new Segment(new Point(200,150),new Point(150,100)),
-             new Segment(new Point(150,100),new Point(100,100))];
+             new Segment(new Point(150,100),new Point(100,100)),
+
+             new Segment(new Point(300,300),new Point(250,350)),
+             new Segment(new Point(300,300),new Point(350,350))];
 }
 
 function draw() {
