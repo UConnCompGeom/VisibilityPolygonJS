@@ -28,8 +28,17 @@ Source.prototype.draw = function() {
 // TODO: Don't draw raws the intersect other segments
 function drawRays(source) {
     for (var p of pset) {
+        intersect = false;
         seg = new Segment(source, p);
-        seg.draw();
+        for (i = 0; i < lines.length; i++) {
+          if (segcross(seg,lines[i]) == 1) {
+            intersect = true;
+            break;
+          }
+        }
+        if (!intersect) {
+          seg.draw();
+        }
     }
 }
 
@@ -37,7 +46,7 @@ function drawRays(source) {
 // Global Variables
 ///////////////////////////
 
-var polygon;
+var lines;
 var src;
 
 
@@ -51,14 +60,20 @@ function setup() {
     background(51);
 
     src = new Source();
-    polygon = new Polygon([new Point(100, 100), new Point(50, 150),
-                           new Point(50, 200), new Point(100, 250),
-                           new Point(150, 250), new Point(200, 200),
-                           new Point(200, 150), new Point(150, 100)]);
+    lines = [new Segment(new Point(100,100),new Point(50,150)),
+             new Segment(new Point(50,150),new Point(50,200)),
+             new Segment(new Point(50,200),new Point(100,250)),
+             new Segment(new Point(100,250),new Point(150,250)),
+             new Segment(new Point(150,250),new Point(200,200)),
+             new Segment(new Point(200,200),new Point(200,150)),
+             new Segment(new Point(200,150),new Point(150,100)),
+             new Segment(new Point(150,100),new Point(100,100))];
 }
 
 function draw() {
     background(51);
-    polygon.draw();
+    for (i = 0; i < lines.length; i++) {
+      lines[i].draw();
+    }
     drawRays(src);
 }
