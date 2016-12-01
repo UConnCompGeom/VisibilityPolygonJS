@@ -117,7 +117,7 @@ a & b: line 1
 c & d: line 2
 */
 function cross(a, b, c, d) {
-    return (Math.abs(ccw(a,b,c) - ccw(a,b,d)) * Math.abs(ccw(c,d,a) - ccw(c,d,b)))/4;
+    return ((ccw(a,b,c) - ccw(a,b,d)) * (ccw(c,d,a) - ccw(c,d,b)))/4;
 }
 
 function segcross(seg1, seg2) {
