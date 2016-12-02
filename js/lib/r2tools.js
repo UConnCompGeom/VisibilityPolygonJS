@@ -4,11 +4,17 @@
 
 var pset = new Set();
 var eset = new Set();
+var point_to_edges_dict = {};
 
 
 ///////////////////////////////
 // Classes
 ///////////////////////////////
+
+function HalfIntersect() {
+  this.NegativeCCW = false;
+  this.PositiveCCW = false;
+};
 
 function Point(x, y, label="") {
     this.x = x;
@@ -36,6 +42,19 @@ function Segment(p1, p2) {
     this.p2 = p2;
     this.color = color(255, 255, 255);
     eset.add(this);
+
+    key1 = p1.x + "," + p1.y;
+    key2 = p2.x + "," + p2.y;
+    if (point_to_edges_dict[key1] == null) {
+      point_to_edges_dict[key1] = [this];
+    } else {
+      point_to_edges_dict[key1].push(this);
+    }
+    if (point_to_edges_dict[key2] == null) {
+      point_to_edges_dict[key2] = [this];
+    } else {
+      point_to_edges_dict[key2].push(this);
+    }
 }
 
 Segment.prototype.draw = function() {
@@ -152,10 +171,26 @@ function intersection_on_border(seg, border) {
   }
 }
 
+function intersection_two_segments(seg1,seg2) {
+//only call if we know the two segments intersect
+  a = seg1.p1;
+  b = seg1.p2;
+  c = seg2.p1;
+  d = seg2.p2;
+
+  num = ((d.x - c.x) * (a.y - c.y)) - ((d.y - c.y) * (a.x - c.x));
+  den = ((d.y - c.y) * (b.x - a.x)) - ((d.x - c.x) * (b.y - a.y));
+  val = num/den;
+  x = a.x + (val * (b.x - a.x));
+  y = a.y + (val * (b.y - a.y));
+
+  return new Point(x,y);
+}
+
 function angle(a,b,c) {
-    var ab = Math.sqrt(Math.pow(b.x-a.x,2)+ Math.pow(b.y-a.y,2));    
-    var bc = Math.sqrt(Math.pow(b.x-c.x,2)+ Math.pow(b.y-c.y,2)); 
-    var ac = Math.sqrt(Math.pow(c.x-a.x,2)+ Math.pow(c.y-a.y,2));
+    var ab = distance(a,b);    
+    var bc = distance(b,c); 
+    var ac = distance(a,c);
     val = (bc*bc+ab*ab-ac*ac)/(2*bc*ab);
     if (Math.abs(1-val) < .001) {
       val = 1;
@@ -164,4 +199,8 @@ function angle(a,b,c) {
       val = -1;
     }
     return Math.acos(val);
+}
+
+function distance(point1, point2) {
+  return Math.sqrt(Math.pow(point1.x-point2.x,2) + Math.pow(point1.y-point2.y,2));
 }
