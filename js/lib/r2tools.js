@@ -11,7 +11,8 @@ var point_to_edges_dict = {};
 // Classes
 ///////////////////////////////
 
-function HalfIntersect() {
+function HalfIntersect(p) {
+  this.Point = p;
   this.NegativeCCW = false;
   this.PositiveCCW = false;
 };
