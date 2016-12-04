@@ -142,6 +142,14 @@ function drawRays(source) {
     }
 }
 
+
+// TODO: Implement
+function fillPolygon() {
+    // Use beginShape()
+    // Use vertex()
+    // endshape()
+}
+
 ///////////////////////////
 // Global Variables
 ///////////////////////////
