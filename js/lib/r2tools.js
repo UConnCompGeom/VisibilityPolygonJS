@@ -4,7 +4,6 @@
 
 var pset = new Set();
 var eset = new Set();
-var point_to_edges_dict = {};
 
 
 ///////////////////////////////
@@ -43,19 +42,6 @@ function Segment(p1, p2) {
     this.p2 = p2;
     this.color = color(255, 255, 255);
     eset.add(this);
-
-    key1 = p1.x + "," + p1.y;
-    key2 = p2.x + "," + p2.y;
-    if (point_to_edges_dict[key1] == null) {
-      point_to_edges_dict[key1] = [this];
-    } else {
-      point_to_edges_dict[key1].push(this);
-    }
-    if (point_to_edges_dict[key2] == null) {
-      point_to_edges_dict[key2] = [this];
-    } else {
-      point_to_edges_dict[key2].push(this);
-    }
 }
 
 Segment.prototype.draw = function() {
@@ -151,7 +137,7 @@ function segcross(seg1, seg2) {
 
 function intersection_on_border(seg, border) {
   if (border.p1.x == border.p2.x) {
-    if (Math.abs(seg.p1.x - seg.p2.x) < .0001) {
+    if (Math.abs(seg.p1.x - seg.p2.x) < 0.0001) {
       return new Point(0,0,"null");
     }
     m = (seg.p2.y - seg.p1.y)/(seg.p2.x - seg.p1.x);
@@ -159,10 +145,10 @@ function intersection_on_border(seg, border) {
 
     return new Point(border.p1.x,m*border.p1.x + b);
   } else {
-    if (Math.abs(seg.p1.y - seg.p2.y) < .0001) {
+    if (Math.abs(seg.p1.y - seg.p2.y) < 0.0001) {
       return new Point(0,0,"null");
     }
-    if (Math.abs(seg.p1.x - seg.p2.x) < .0001) {
+    if (Math.abs(seg.p1.x - seg.p2.x) < 0.0001) {
       return new Point(seg.p1.x,border.p1.y);
     }
     m = (seg.p2.y - seg.p1.y)/(seg.p2.x - seg.p1.x);
@@ -189,14 +175,14 @@ function intersection_two_segments(seg1,seg2) {
 }
 
 function angle(a,b,c) {
-    var ab = distance(a,b);    
-    var bc = distance(b,c); 
+    var ab = distance(a,b);
+    var bc = distance(b,c);
     var ac = distance(a,c);
     val = (bc*bc+ab*ab-ac*ac)/(2*bc*ab);
-    if (Math.abs(1-val) < .001) {
+    if (Math.abs(1-val) < 0.001) {
       val = 1;
     }
-    if (Math.abs(-1-val) < .001) {
+    if (Math.abs(-1-val) < 0.001) {
       val = -1;
     }
     return Math.acos(val);
