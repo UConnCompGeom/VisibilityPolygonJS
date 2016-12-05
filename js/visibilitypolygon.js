@@ -9,7 +9,7 @@ function Source() {
     this.color = color('blue');
     this.x = mouseX;
     this.y = mouseY;
-}
+};
 
 Source.prototype = Object.create(Point.prototype);
 
@@ -22,6 +22,77 @@ Source.prototype.draw = function() {
     this.y = mouseY;
     ellipse(this.x, this.y, 10);
     pop();
+};
+
+function addBorderLines() {
+  for (b = 0; b < borderPoints.length; b++) {
+    intersected = false;
+    for (i = 0; i < lines.length; i++) {
+      intersection_value = cross(src,borderPoints[b],lines[i].p1,lines[i].p2);
+      if (Math.abs(intersection_value) != 0) {
+        intersected = true;
+        break;
+      }
+    }
+    if (!intersected) {
+      addPointToOrdering(borderPoints[b]);
+    }
+  } 
+};
+
+function pointLessThan(a,b) {
+//We always add the beyond point after the closer point, but need to figure out which one should 
+
+come first.
+  for (var key in sameLine[a.x + " " + a.y]) {
+    if (sameLine[a.x + " " + a.y][key] == b) {
+      for (var e in lines) {
+        if (lines[e].p1 == a) {
+          x = lines[e].p2;
+          if (ccw(src,a,x) == 1) {
+            return false;
+          } else if(ccw(src,a,x) == -1) {
+            return true;
+          }
+        } else if (lines[e].p2 == a) {
+          x = lines[e].p1;
+          if (ccw(src,a,x) == 1) {
+            return false;
+          } else if(ccw(src,a,x) == -1) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+
+  if (a.x - src.x >= 0 && b.x - src.x < 0) {
+    return true;
+  } else if (a.x - src.x < 0 && b.x - src.x >= 0) {
+    return false;
+  } else if (a.x - src.x == 0 && b.x - src.x  == 0) {
+    if (a.y - src.y >= 0 || b.y - src.y >= 0) {
+      return a.y > b.y;
+    }
+    return b.y > a.y;
+  }
+
+  determ = (a.x - src.x) * (b.y - src.y) - (b.x - src.x) * (a.y - src.y);
+  if (determ < 0) {
+    return true;
+  } else if (determ > 0) {
+    return false;
+  }
+};
+
+function addPointToOrdering(p) {
+  for (i = 0; i < point_order.length; i++) {
+    if (pointLessThan(point_order[i],p)) {
+      point_order.splice(i,0,p);
+      return;
+    }
+  }
+  point_order.push(p);
 };
 
 // TODO: Make more efficient (i.e. stop re-drawing the source every iteration)
@@ -41,7 +112,9 @@ function drawRays(source) {
         border_dist = Infinity;
         for (i = 0; i < 4; i++) {
           border_intersect = intersection_on_border(seg,borders[i]);
-          if (border_intersect.label != "null" && distance(border_intersect,source) < border_dist && Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
+          if (border_intersect.label != "null" && distance(border_intersect,source) < border_dist && 
+
+Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
             edgePoint = border_intersect;
             border_dist = distance(border_intersect,source);
           }
@@ -64,8 +137,12 @@ function drawRays(source) {
             if (seg_half_intersects[intersected_vertex] == null) {
               seg_half_intersects[intersected_vertex] = new HalfIntersect(intersected_vertex);
             }
-            seg_half_intersects[intersected_vertex].PositiveCCW = (seg_half_intersects[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
-            seg_half_intersects[intersected_vertex].NegativeCCW = (seg_half_intersects[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
+            seg_half_intersects[intersected_vertex].PositiveCCW = (seg_half_intersects
+
+[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
+            seg_half_intersects[intersected_vertex].NegativeCCW = (seg_half_intersects
+
+[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
           } else if (Math.abs(intersection_value) == .25) {
             if (ccw(source,mypoint,lines[i].p1) == 0) {
               intersected_vertex = lines[i].p1;
@@ -75,10 +152,20 @@ function drawRays(source) {
               other_vertex = lines[i].p1;
             }
             if (seg_half_intersects_at_end[intersected_vertex] == null) {
-              seg_half_intersects_at_end[intersected_vertex] = new HalfIntersect(intersected_vertex);
+              seg_half_intersects_at_end[intersected_vertex] = new HalfIntersect
+
+(intersected_vertex);
             }
-            seg_half_intersects_at_end[intersected_vertex].PositiveCCW = (seg_half_intersects_at_end[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
-            seg_half_intersects_at_end[intersected_vertex].NegativeCCW = (seg_half_intersects_at_end[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
+            seg_half_intersects_at_end[intersected_vertex].PositiveCCW = 
+
+(seg_half_intersects_at_end[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 
+
+1;
+            seg_half_intersects_at_end[intersected_vertex].NegativeCCW = 
+
+(seg_half_intersects_at_end[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == 
+
+-1;
           }
 
           intersection_value = segcross(beyond,lines[i]);
@@ -101,8 +188,12 @@ function drawRays(source) {
             if (beyond_half_intersects[intersected_vertex] == null) {
               beyond_half_intersects[intersected_vertex] = new HalfIntersect(intersected_vertex);
             }
-            beyond_half_intersects[intersected_vertex].PositiveCCW = (beyond_half_intersects[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
-            beyond_half_intersects[intersected_vertex].NegativeCCW = (beyond_half_intersects[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
+            beyond_half_intersects[intersected_vertex].PositiveCCW = (beyond_half_intersects
+
+[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
+            beyond_half_intersects[intersected_vertex].NegativeCCW = (beyond_half_intersects
+
+[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
           }
         }
         seg_intersected_through_vertex = false;
@@ -114,7 +205,9 @@ function drawRays(source) {
         }
         seg_intersected_at_vertex = false;
         for (var key in seg_half_intersects_at_end) {
-          if (seg_half_intersects_at_end[key].PositiveCCW && seg_half_intersects_at_end[key].NegativeCCW) {
+          if (seg_half_intersects_at_end[key].PositiveCCW && seg_half_intersects_at_end
+
+[key].NegativeCCW) {
             seg_intersected_at_vertex = true;
             break;
           }
@@ -132,14 +225,39 @@ function drawRays(source) {
         }
         if (intersect_seg.length == 0 && !seg_intersected_through_vertex) {
           seg.draw();
+          addPointToOrdering(seg.p2);
           if (intersect_beyond_distance == Infinity && !seg_intersected_at_vertex) {
             beyond.draw();
+            if (sameLine[mypoint] == null) {
+              sameLine[mypoint.x + " " + mypoint.y] = [beyond.p2];
+            } else {
+              sameLine[mypoint.x + " " + mypoint.y].push(beyond.p2);
+            }
+            addPointToOrdering(beyond.p2);
           } else if (!seg_intersected_at_vertex) {
             beyond = new Segment(mypoint,intersect_beyond);
             beyond.draw();
+            if (sameLine[mypoint.x + " " + mypoint.y] == null) {
+              sameLine[mypoint.x + " " + mypoint.y] = [beyond.p2];
+            } else {
+              sameLine[mypoint.x + " " + mypoint.y].push(beyond.p2);
+            }
+            addPointToOrdering(beyond.p2);
           }
         }
     }
+};
+
+function highlightVisibleAreas() {
+  noStroke();
+  fill(0,180,180);
+  l = point_order.length;
+
+  for (i = 0; i < l; i++) {
+    curr = point_order[i];
+    next = point_order[(i+1)%l];
+    triangle(src.x,src.y,curr.x,curr.y,next.x,next.y);
+  }
 }
 
 ///////////////////////////
@@ -150,6 +268,9 @@ var lines;
 var points;
 var borders;
 var src;
+var point_order;
+var borderPoints;
+var sameLine;
 
 
 ///////////////////////////
@@ -174,6 +295,11 @@ function setup() {
              new Segment(new Point(300,300),new Point(250,350)),
              new Segment(new Point(300,300),new Point(350,350)),
 
+             new Segment(new Point(600,700),new Point(700,700)),
+             new Segment(new Point(700,700),new Point(700,600)),
+             new Segment(new Point(700,600),new Point(600,600)),
+             new Segment(new Point(600,600),new Point(600,700)),
+
              new Segment(new Point(300,500),new Point(250,550))];
 
     points = [];
@@ -186,12 +312,24 @@ function setup() {
              new Segment(new Point(0,windowHeight),new Point(windowWidth,windowHeight)),
              new Segment(new Point(windowWidth,windowHeight),new Point(windowWidth,0)),
              new Segment(new Point(windowWidth,0),new Point(0,0))];
+
+    borderPoints =
+            [new Point(0,0),new Point(0,windowHeight),new Point(windowWidth,windowHeight),new Point
+
+(windowWidth,0)];
 }
 
 function draw() {
+    pset = new Set();
+    point_to_edges_dict = {};
+    point_order = [];
+    sameLine = {};
+
     background(51);
     for (i = 0; i < lines.length; i++) {
       lines[i].draw();
     }
     drawRays(src);
+    addBorderLines(src);
+    highlightVisibleAreas();
 }
