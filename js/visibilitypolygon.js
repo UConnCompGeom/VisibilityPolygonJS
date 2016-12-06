@@ -110,9 +110,7 @@ function drawRays(source) {
         border_dist = Infinity;
         for (i = 0; i < 4; i++) {
           border_intersect = intersection_on_border(seg,borders[i]);
-          if (border_intersect.label != "null" && distance(border_intersect,source) < border_dist && 
-
-Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
+          if (border_intersect.label != "null" && distance(border_intersect,source) < border_dist && Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
             edgePoint = border_intersect;
             border_dist = distance(border_intersect,source);
           }
@@ -135,12 +133,8 @@ Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
             if (seg_half_intersects[intersected_vertex] == null) {
               seg_half_intersects[intersected_vertex] = new HalfIntersect(intersected_vertex);
             }
-            seg_half_intersects[intersected_vertex].PositiveCCW = (seg_half_intersects
-
-[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
-            seg_half_intersects[intersected_vertex].NegativeCCW = (seg_half_intersects
-
-[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
+            seg_half_intersects[intersected_vertex].PositiveCCW = (seg_half_intersects[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
+            seg_half_intersects[intersected_vertex].NegativeCCW = (seg_half_intersects[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
           } else if (Math.abs(intersection_value) == .25) {
             if (ccw(source,mypoint,lines[i].p1) == 0) {
               intersected_vertex = lines[i].p1;
@@ -150,20 +144,10 @@ Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
               other_vertex = lines[i].p1;
             }
             if (seg_half_intersects_at_end[intersected_vertex] == null) {
-              seg_half_intersects_at_end[intersected_vertex] = new HalfIntersect
-
-(intersected_vertex);
+              seg_half_intersects_at_end[intersected_vertex] = new HalfIntersect(intersected_vertex);
             }
-            seg_half_intersects_at_end[intersected_vertex].PositiveCCW = 
-
-(seg_half_intersects_at_end[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 
-
-1;
-            seg_half_intersects_at_end[intersected_vertex].NegativeCCW = 
-
-(seg_half_intersects_at_end[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == 
-
--1;
+            seg_half_intersects_at_end[intersected_vertex].PositiveCCW = (seg_half_intersects_at_end[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
+            seg_half_intersects_at_end[intersected_vertex].NegativeCCW = (seg_half_intersects_at_end[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
           }
 
           intersection_value = segcross(beyond,lines[i]);
@@ -186,12 +170,8 @@ Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
             if (beyond_half_intersects[intersected_vertex] == null) {
               beyond_half_intersects[intersected_vertex] = new HalfIntersect(intersected_vertex);
             }
-            beyond_half_intersects[intersected_vertex].PositiveCCW = (beyond_half_intersects
-
-[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
-            beyond_half_intersects[intersected_vertex].NegativeCCW = (beyond_half_intersects
-
-[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
+            beyond_half_intersects[intersected_vertex].PositiveCCW = (beyond_half_intersects[intersected_vertex].PositiveCCW) || ccw(source,mypoint,other_vertex) == 1;
+            beyond_half_intersects[intersected_vertex].NegativeCCW = (beyond_half_intersects[intersected_vertex].NegativeCCW) || ccw(source,mypoint,other_vertex) == -1;
           }
         }
         seg_intersected_through_vertex = false;
@@ -203,9 +183,7 @@ Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
         }
         seg_intersected_at_vertex = false;
         for (var key in seg_half_intersects_at_end) {
-          if (seg_half_intersects_at_end[key].PositiveCCW && seg_half_intersects_at_end
-
-[key].NegativeCCW) {
+          if (seg_half_intersects_at_end[key].PositiveCCW && seg_half_intersects_at_end[key].NegativeCCW) {
             seg_intersected_at_vertex = true;
             break;
           }
@@ -246,6 +224,78 @@ Math.abs(angle(source,mypoint,border_intersect) - 3.14) < .01) {
     }
 };
 
+function castRays(num) {
+  current_angle = 0;
+  for (count = 0; count < num; count++) {
+    samplePoint = new Point(Math.cos(current_angle) + src.x,Math.sin(current_angle) + src.y);
+    seg_half_intersects = {};
+    edgePoint = null;
+    border_dist = Infinity;
+    seg = new Segment(src,samplePoint);
+
+    for (i = 0; i < 4; i++) {
+      border_intersect = segcross(seg,borders[i]);
+      if (border_intersect != 0) {
+        intersection_point = intersection_two_segments(seg,borders[i]);
+        if (distance(intersection_point,src) < border_dist) {
+          edgePoint = intersection_point;
+          border_dist = distance(border_intersect,src);
+        }
+      }
+    }
+    if (edgePoint == null) {
+      for (i = 0; i < 4; i++) {
+        border_intersect = intersection_on_border(seg,borders[i]);
+        if (border_intersect.label != "null" && distance(border_intersect,src) < border_dist && Math.abs(angle(src,samplePoint,border_intersect) - 3.14) < .01) {
+          edgePoint = border_intersect;
+          border_dist = distance(border_intersect,src);
+        }
+      }
+    }
+    seg = new Segment(src,edgePoint);
+
+    for (i = 0; i < lines.length; i++) {
+      intersection_value = segcross(seg,lines[i]);
+      if (Math.abs(intersection_value) == 1) {
+        intersection_point = intersection_two_segments(seg,lines[i]);
+        beyond_dist = distance(src,intersection_point);
+
+        if (beyond_dist < border_dist) {
+          edgePoint = intersection_point;
+          border_dist = beyond_dist;
+        }
+      } else if (Math.abs(intersection_value) == .5) {
+        if (ccw(src,edgePoint,lines[i].p1) == 0) {
+          intersected_vertex = lines[i].p1;
+          other_vertex = lines[i].p2;
+        } else {
+          intersected_vertex = lines[i].p2;
+          other_vertex = lines[i].p1;
+        }
+        if (seg_half_intersects[intersected_vertex] == null) {
+          seg_half_intersects[intersected_vertex] = new HalfIntersect(intersected_vertex);
+        }
+        seg_half_intersects[intersected_vertex].PositiveCCW = (seg_half_intersects[intersected_vertex].PositiveCCW) || ccw(src,edgePoint,other_vertex) == 1;
+        seg_half_intersects[intersected_vertex].NegativeCCW = (seg_half_intersects[intersected_vertex].NegativeCCW) || ccw(src,edgePoint,other_vertex) == -1;
+      }
+    }
+
+    for (var key in seg_half_intersects) {
+      if (seg_half_intersects[key].PositiveCCW && seg_half_intersects[key].NegativeCCW) {
+        point_dist = distance(src,seg_half_intersects[key].Point);
+        if (point_dist < border_dist) {
+          edgePoint = seg_half_intersects[key].Point;
+          border_dist = point_dist;
+        }
+      }
+    }
+    seg = new Segment(src,edgePoint);
+    seg.draw();
+    point_order.push(edgePoint);
+    current_angle += 2 * Math.PI/num;
+  }
+};
+
 function highlightVisibleAreas() {
   noStroke();
   fill(0,180,180);
@@ -269,6 +319,8 @@ var src;
 var point_order;
 var borderPoints;
 var sameLine;
+var numRays;
+var radio;
 
 
 ///////////////////////////
@@ -276,6 +328,13 @@ var sameLine;
 ///////////////////////////
 
 function setup() {
+    createElement('p', "Which algorithm to use?");
+    radio = createRadio("Via Angles");
+    radio.option("Via Angles","1");
+    radio.option("Via Points","2");
+    createElement('p', "Number of rays (if Via Angles)");
+    numRays = createInput('30');
+
     // Canvas & Drawing Setup
     createCanvas(windowWidth, windowHeight);
     background(51);
@@ -312,12 +371,12 @@ function setup() {
              new Segment(new Point(windowWidth,0),new Point(0,0))];
 
     borderPoints =
-            [new Point(0,0),new Point(0,windowHeight),new Point(windowWidth,windowHeight),new Point
-
-(windowWidth,0)];
+            [new Point(0,0),new Point(0,windowHeight),new Point(windowWidth,windowHeight),new Point(windowWidth,0)];
 }
 
 function draw() {
+  src = new Source();
+  if (src.y >= 0) {
     pset = new Set();
     point_to_edges_dict = {};
     point_order = [];
@@ -327,7 +386,12 @@ function draw() {
     for (i = 0; i < lines.length; i++) {
       lines[i].draw();
     }
-    drawRays(src);
-    addBorderLines(src);
+    if (radio.value() == "2") {
+      drawRays(src);
+      addBorderLines(src);
+    } else {
+      castRays(numRays.value());
+    }
     highlightVisibleAreas();
+  }
 }
