@@ -19,8 +19,16 @@ body {
 }
 
 .section {
-
     height: 100vh;
+}
+
+.secheader {
+    font-size: 4em;
+}
+
+.subsection {
+    margin: 0;
+    padding: 0;
 }
 
 #sec1 {

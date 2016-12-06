@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Highlight Stuff</title>
+        <!-- Syntax Highlighting -->
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/dark.min.css">
+        <script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad();
+        </script>
+    </head>
+    <body>
+        <pre><code class="python">
+            URC(src, P, O, rays):
+                V = set()  # set of points in visibility polygon
+                v = None  # point in visibility polygon
+                for angle in range(0, 2*pi, rays):
+                    v = cast(src, S, angle)
+                    if v is not None: V.add(v)
+                return V
+        </code></pre>
+    </body>
+</html>

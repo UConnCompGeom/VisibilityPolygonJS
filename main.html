@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/main.css">
     <!-- <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"> -->
     <!-- Syntax Highlighting -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/atom-one-dark.min.css">
 </head>
 
 <body>
@@ -30,21 +30,24 @@
         </div>
 
         <div class="row section" id="sec3">
-            <div class="centered">Uniform Ray Casting</div>
-            <div class="">
-                <pre>
-                    <code class="html">
-                        URC(src, P, O, rays):
-                            V = set()  # set of points in visibility polygon
-                            v = None  # point in visibility polygon
-                            for angle in range(0, 2*pi, rays):
-                                v = cast(src, S, angle)
-                                if v is not None: V.add(v)
-                            return V
-                    </code>
-                </pre>
-            </div>
 
+            <div class="row subsection">
+                <div class="secheader">Uniform Ray Casting</div>
+            </div>
+            <div class="row subsection">
+                <pre class="subsection"><code class="python">
+                    URC(src, P, O, rays):
+                        V = set()  # set of points in visibility polygon
+                        v = None  # point in visibility polygon
+                        for angle in range(0, 2*pi, rays):
+                            v = cast(src, S, angle)
+                            if v is not None: V.add(v)
+                        return V
+                </code></pre>
+            </div>
+            <div class="row subsection">
+                Stuff
+            </div>
         </div>
 
         <div class="row section" id="sec4">
@@ -73,9 +76,8 @@
 <!--  Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- Syntax Highlighting -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
 </script>
-
 </html>
