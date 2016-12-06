@@ -41,9 +41,7 @@ function addBorderLines() {
 };
 
 function pointLessThan(a,b) {
-//We always add the beyond point after the closer point, but need to figure out which one should 
-
-come first.
+//We always add the beyond point after the closer point, but need to figure out which one should come first.
   for (var key in sameLine[a.x + " " + a.y]) {
     if (sameLine[a.x + " " + a.y][key] == b) {
       for (var e in lines) {

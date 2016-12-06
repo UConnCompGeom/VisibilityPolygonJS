@@ -1,0 +1,40 @@
+.demo {
+    height: 100vh;
+    width: 50vw;
+}
+
+.centered {
+    /*position: fixed;*/
+    position: relative;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    text-align: center;
+}
+
+.section {
+
+    height: 100vh;
+}
+
+#sec1 {
+    position: relative;
+    background: #FFD800;
+}
+
+#sec2 {
+    position: relative;
+    background: #587058;
+}
+
+#sec3 {
+    position: relative;
+    background: #587498;
+}
+
+#sec4 {
+    position: relative;
+    background: #E86850;
+}
