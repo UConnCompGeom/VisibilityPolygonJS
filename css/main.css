@@ -67,3 +67,9 @@ span.mathy {
 code.codey {
     font-size: 1.2em;
 }
+
+#greeting {
+    text-align: center;
+    font-size: 6em;
+    font-weight: light;
+}

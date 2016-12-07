@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Visibility Polygon</title>
     <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Diplomata+SC|Julius+Sans+One|Old+Standard+TT|Roboto" rel="stylesheet">
     <!-- FullPage -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
@@ -21,10 +22,12 @@
 </head>
 
 <body>
+
     <div id="fullpage">
         <!-- Home -->
         <div class="section" id="sec1">
-            <div class="centered">Visibility Polygon</div>
+            <a href="https://github.com/UConnCompGeom/VisibilityPolygonJS"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+            <div id="greeting">Visibility Polygon</div>
         </div>
 
         <!-- Intro/About/Theory -->
@@ -259,7 +262,7 @@
 <script>
     $(document).ready(function() {
         $('#fullpage').fullpage({
-            sectionsColor: ['#021C1E', '#004445', '#2C7873', '#6FB98F', '#021C1E', '#004445', '#2C7873', '#6FB98F', '#6FB98F', '#6FB98F'],
+            sectionsColor: ['#021C1E', '#004445', '#2C7873', '#6FB98F', '#021C1E', '#004445', '#2C7873', '#6FB98F', '#6FB98F', '#99FFC5'],
             anchors: ['home', 'about', 'explainurc', 'urc', 'explainvrc', 'vrc', 'nothing', 'remark', 'nothing', 'interactive']
         });
     });
