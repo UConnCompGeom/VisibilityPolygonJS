@@ -37,7 +37,7 @@ function addBorderLines() {
     if (!intersected) {
       addPointToOrdering(borderPoints[b]);
     }
-  }
+  } 
 };
 
 function pointLessThan(a,b) {
@@ -319,6 +319,8 @@ var src;
 var point_order;
 var borderPoints;
 var sameLine;
+var numRays;
+var radio;
 var visibilityMode;
 var drawLineMode;
 var firstPoint;
@@ -337,6 +339,14 @@ drawShapeMode = false;
 drawLineMode = false;
 shapeToDraw = 5;
 firstPoint = null;
+
+    createElement('p', "Which algorithm to use?");
+    radio = createRadio("Via Angles");
+    radio.option("Via Angles","1");
+    radio.option("Via Points","2");
+    createElement('p', "Number of rays (if Via Angles)");
+    numRays = createInput('30');
+
     // Canvas & Drawing Setup
     createCanvas(windowWidth, windowHeight);
     background(51);
@@ -389,8 +399,12 @@ function draw() {
     lines[i].draw();
   }
   if (visibilityMode && src.y >= 0) {
+    if (radio.value() == "2") {
       drawRays(src);
       addBorderLines(src);
+    } else {
+      castRays(numRays.value());
+    }
     highlightVisibleAreas();
   }
 }

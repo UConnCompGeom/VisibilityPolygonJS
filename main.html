@@ -38,7 +38,7 @@
             <div class="slide" data-anchor="slide1">
                 <div class="col-xs-10">
                     <p>
-                        In a 2D space with obstacles (i.e polygons) you have a source;
+                        In a 2D space with obstacles (i.e polygons) you have a source
                         which can be thought of as a light that illuminates all space it has direct
                         sight of (i.e. it can't shine through obstacles). The polygon
                         formed by the space that is illuminated is known as the Visibility Polygon.
@@ -50,7 +50,7 @@
                         <br> Let <span class="mathy">q</span> and <span class="mathy">p</span> be members of <span class="mathy">V</span>
                     </p>
                     <p>
-                        The visibilitypolygon poylgon is the set of points <span class="mathy">V</span> in
+                        The visibility poylgon is the set of points <span class="mathy">V</span> in
                         <span class="mathy">R^2</span> such that every point <span class="mathy">q</span> the segment <span class="mathy">pq</span>,doesn't intersect any obstacles in <span class="mathy">O</span>
                     </p>
                 </div>
@@ -66,8 +66,8 @@
                             <img class="card-img-top" src="images/bomberman.png" alt="Card image">
                             <div class="card-block">
                                 <p class="card-text">
-                                    In bombermand multiplayer, players go head to head in an intersecting
-                                    visibility polygon match. Who ever is caught in the blaze of visibility polygon of an explosion
+                                    In Bomberman multiplayer, players go head-to-head in an intersecting
+                                    visibility polygon match. Whoever is caught in the blaze of the visibility polygon of an explosion
                                     loses.
                                 </p>
                                 <a href="https://youtu.be/jY9GDOT0wwM" class="card-link">Video</a>
@@ -84,7 +84,7 @@
                             <img class="card-img-top" src="images/slam.png" alt="Card image">
                             <div class="card-block">
                                 <p class="card-text">
-                                    Using LIDAR a robot can detect edges of obstacles, and synthesize this
+                                    Using LIDAR a robot can detect edges of obstacles and synthesize this
                                     information from other sensors such as Interial measurmement unit (IMU)
                                     to localize the robot in space.
                                 </p>
@@ -102,9 +102,9 @@
                             <img class="card-img-top" src="images/watchman.png" alt="Card image">
                             <div class="card-block">
                                 <p class="card-text">
-                                    Intersting problems such as "The Watchman Route Problem", which demands
-                                    a path for which a watchman may see every point in a patrol Polygon
-                                    at least once
+                                    Interesting problems such as "The Watchman Route Problem", which demands
+                                    a path for which a watchman may see every point in a patrol polygon
+                                    at least once.
                                 </p>
                                 <a href="http://search.proquest.com/docview/305357791" class="card-link">Paper</a>
                             </div>
@@ -124,12 +124,12 @@
             <div class="row subsection">
                 <div class="col-xs-6">
                     <p>
-                        The idea is to rotate about a point <code>v</code> from <code>0 - 2pi</code> casting rays out every <code>a</code> angels This algorithm doesn't always produce the correct result, and isn't optimal. The idea of increasing the number
-                        of <code>rays</code> (in turn reducing the size of the increment angle) will improve the result, but even then you can find errors as you see that small obstacles at a distance are missed. Ideally best angle would be infinitesimal
-                        so that a ray never misses any shape, but this
+                        The idea is to rotate about a point <code>p</code> from <code>0 - 2pi</code> casting rays out every <code>a</code> angles. This algorithm doesn't always produce the correct result and isn't optimal. The idea of increasing the number
+                        of <code>rays</code> (in turn reducing the size of the increment angle) will improve the result, but even then it is imprecise for distant obstacles. Ideally the best angle would be infinitesimal
+                        so that a ray never misses any shape.
                     </p>
                     <p>
-                        Note, increasing the number of rays is expensive, because you need to check if any of the rays intersect with an edge <span class="mathy">E</span> from set of all obstacles <code>S</code>.The numbers of rays can grow exponentially,
+                        Note, increasing the number of rays is expensive, because you need to check if any of the rays intersect with an edge <span class="mathy">E</span> from the set of all obstacles <code>O</code>. The numbers of rays can grow exponentially,
                         so we can say that the complexity is exponential in the number of rays.
                     </p>
                     <h1>
@@ -140,11 +140,11 @@
                     <pre class="subsection"><code class="python codey">
             URC(src, O, rays):
                 V = set()  # set of points in visibility polygon (VP)
-                v = None  # point in VP
+                p = None  # point in VP
                 for a in frange(0, 2*pi, (2*pi)/rays):
-                    # get intersection point with obstacle in S
-                    v = cast(S, src, angel=a)
-                    if v is not None: V.add(v)
+                    # get intersection point with obstacle in O
+                    p = cast(O, src, angle=a)
+                    V.add(p)
                 return V
                     </code></pre>
                 </div>
@@ -153,7 +153,17 @@
 
         <!--Demo Enifficent Version -->
         <div class="section">
-            <div class="centered">Demo Inefficient Version</div>
+            <div class="col-xs-1">
+                <!-- Padding -->
+            </div>
+            <div class="col-xs-10">
+                <div class="embed-responsive section">
+                    <iframe class="demo" src="slowvispoly.html"></iframe>
+                </div>
+            </div>
+            <div class="col-xs-1">
+
+            </div>
         </div>
 
         <!-- Explain More Efficient Version -->
@@ -180,9 +190,9 @@
             VRC(src, O):
                 V = set()  # set of points in visibility polygon (VP)
                 for p in points(O):
-                    r = ray(src, p)
-                    for e in edges(S):
-                        if not intersect(r, e): V.add(p)
+                    # Get ray if it isn't blocked
+                    r = cast(O, src, p)
+                    if r is not None: V.add(r)
                 return V
                     </code></pre>
                 </div>
@@ -191,8 +201,16 @@
 
         <!-- Better Implementation -->
         <div class="section">
-            <div class="embed-responsive section">
-                <iframe class="demo" src="vispoly.html"></iframe>
+            <div class="col-xs-1">
+                <!-- Padding -->
+            </div>
+            <div class="col-xs-10">
+                <div class="embed-responsive section">
+                    <iframe class="demo" src="vispoly.html"></iframe>
+                </div>
+            </div>
+            <div class="col-xs-1">
+                <!-- Padding -->
             </div>
         </div>
 
@@ -205,13 +223,29 @@
                 </div>
                 <div class="col-xs-10">
                     <p>
-                        There are other algorithsm that are better, with <span class="mathy">O(nlogn)</span> complexity.
-                        There's a <a href="http://dl.acm.org/citation.cfm?doid=10515.10517">paper</a>  where the algorithm is described, but we didn't go about implementing it.
+                        There are better algorithms with <span class="mathy">O(nlogn)</span> complexity.
+                        There's a <a href="http://dl.acm.org/citation.cfm?doid=10515.10517">paper</a>  where the algorithm is described, but we didn't go about implementing it,
+                        but instead we created an interactive benchmark. Enjoy!
                     </p>
                 </div>
                 <div class="col-xs-1">
                     <!-- Padding -->
                 </div>
+            </div>
+        </div>
+
+        <!-- Interfactive -->
+        <div class="section">
+            <div class="col-xs-1">
+                <!-- Padding -->
+            </div>
+            <div class="col-xs-10">
+                <div class="embed-responsive section">
+                    <iframe class="demo" src="intvispoly.html"></iframe>
+                </div>
+            </div>
+            <div class="col-xs-1">
+                <!-- Padding -->
             </div>
         </div>
     </div>
@@ -225,8 +259,8 @@
 <script>
     $(document).ready(function() {
         $('#fullpage').fullpage({
-            sectionsColor: ['#021C1E', '#004445', '#2C7873', '#6FB98F', '#021C1E', '#004445', '#2C7873', '#6FB98F'],
-            anchors: ['home', 'about', 'explainurc', 'urc', 'explainvrc', 'vrc', 'nothing', 'remark']
+            sectionsColor: ['#021C1E', '#004445', '#2C7873', '#6FB98F', '#021C1E', '#004445', '#2C7873', '#6FB98F', '#6FB98F', '#6FB98F'],
+            anchors: ['home', 'about', 'explainurc', 'urc', 'explainvrc', 'vrc', 'nothing', 'remark', 'nothing', 'interactive']
         });
     });
     hljs.initHighlightingOnLoad();

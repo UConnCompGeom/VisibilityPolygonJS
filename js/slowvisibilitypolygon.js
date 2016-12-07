@@ -319,6 +319,8 @@ var src;
 var point_order;
 var borderPoints;
 var sameLine;
+var numRays;
+var radio;
 var visibilityMode;
 var drawLineMode;
 var firstPoint;
@@ -337,6 +339,10 @@ drawShapeMode = false;
 drawLineMode = false;
 shapeToDraw = 5;
 firstPoint = null;
+
+    createElement('p', "Number of rays (if Via Angles)");
+    numRays = createInput('30');
+
     // Canvas & Drawing Setup
     createCanvas(windowWidth, windowHeight);
     background(51);
@@ -389,8 +395,7 @@ function draw() {
     lines[i].draw();
   }
   if (visibilityMode && src.y >= 0) {
-      drawRays(src);
-      addBorderLines(src);
+    castRays(numRays.value());
     highlightVisibleAreas();
   }
 }
