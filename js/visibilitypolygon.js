@@ -388,7 +388,11 @@ function draw() {
     strokeWeight(1);
     lines[i].draw();
   }
-  if (visibilityMode && src.y >= 0) {
+  if (visibilityMode && src.y >= 0) {for (p in points) {
+    if (points[p].x == src.x && points[p].y == src.y) {
+        return;
+    }
+  }
       drawRays(src);
       addBorderLines(src);
     highlightVisibleAreas();

@@ -403,6 +403,11 @@ function draw() {
     lines[i].draw();
   }
   if (selectMode.value() == "Visibility Mode" && src.y >= 0) {
+    for (p in points) {
+      if (points[p].x == src.x && points[p].y == src.y) {
+          return;
+      }
+    }
     if (radio.value() == "2") {
       drawRays(src);
       addBorderLines(src);
