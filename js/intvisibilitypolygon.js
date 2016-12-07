@@ -325,14 +325,15 @@ var selectMode;
 var firstPoint;
 var shapeToDraw;
 
+function firstPointNull() {
+    firstPoint = null;
+}
 
 ///////////////////////////
 // Setup & Drawing
 ///////////////////////////
 
 function setup() {
-//These will need to be replaced with user-input.  Also, whenever the user switches TO drawLineMode, it should set firstPoint to null.
-firstPoint = null;
 
     createElement('p', "Which algorithm to use?");
     radio = createRadio("Via Angles");
@@ -343,6 +344,7 @@ firstPoint = null;
     selectMode.option("Visibility Mode");
     selectMode.option("Draw Shape");
     selectMode.option("Draw Line");
+    selectMode.changed(firstPointNull);
     shapeToDraw.option("Triangle");
     shapeToDraw.option("Square");
     shapeToDraw.option("Pentagon");
