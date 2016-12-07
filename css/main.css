@@ -22,7 +22,18 @@ p {
     text-align: center;
 }
 
+.card-text {
+    color: black;
+}
 
+.card-title {
+    color: black;
+}
+
+.card-img-top{
+  width:100%;
+  height:auto;
+}
 
 .secheader {
     font-size: 4em;
