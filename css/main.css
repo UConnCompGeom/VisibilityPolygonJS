@@ -18,25 +18,17 @@ p {
 }
 
 .centered {
-    /*position: fixed;*/
-    position: relative;
-    top: 50%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
     font-size: 4em;
     text-align: center;
 }
 
-.section {
-    height: 100vh;
-}
+
 
 .secheader {
     font-size: 4em;
     text-align: center;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
 }
 
 .subsection {
@@ -57,24 +49,4 @@ span.mathy {
 
 code.codey {
     font-size: 1.2em;
-}
-
-#sec1 {
-    position: relative;
-    background: #021C1E;
-}
-
-#sec2 {
-    position: relative;
-    background: #004445;
-}
-
-#sec3 {
-    position: relative;
-    background: #2C7873;
-}
-
-#sec4 {
-    position: relative;
-    background: #6FB98F;
 }

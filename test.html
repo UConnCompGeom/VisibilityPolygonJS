@@ -3,50 +3,42 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Highlight Stuff</title>
+    <!-- For Mobile Phone Compatability -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Visibility Polygon</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Diplomata+SC|Julius+Sans+One|Old+Standard+TT|Roboto" rel="stylesheet">
+    <!-- FullPage -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.min.js"></script>
     <!-- BootStrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
     <!-- Syntax Highlighting -->
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/dark.min.css">
-    <script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad();
-    </script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/atom-one-dark.min.css">
 </head>
 
 <body>
-    <h1>
-        Time Complexity <span class="tag tag-default"><span class="mathy">O(E * r)</span></span>
-    </h1>
-    <span class="tag tag-default">Default</span>
-    <span class="tag tag-primary">Primary</span>
-    <span class="tag tag-success">Success</span>
-    <span class="tag tag-info">Info</span>
-    <span class="tag tag-warning">Warning</span>
-    <span class="tag tag-danger">Danger</span>
-    <pre><code class="python">
-            URC(src, P, O, rays):
-                V = set()  # set of points in visibility polygon
-                v = None  # point in visibility polygon
-                for angle in range(0, 2*pi, rays):
-                    v = cast(src, S, angle)
-                    if v is not None: V.add(v)
-                return V
-        </code></pre>
-
-
-    <p>
-        Square root of two:
-        <math>
-            <msqrt>
-                <mn>2</mn>
-            </msqrt>
-        </math>
-    </p>
-
+    <div id="fullpage">
+        <section class="section">Some section</section>
+        <section class="section">Some section</section>
+        <section class="section">Some section</section>
+        <section class="section">
+            <section class="slide" data-anchor="slide1"> Slide 1 </section>
+            <section class="slide" data-anchor="slide2"> Slide 2 </section>
+            <section class="slide" data-anchor="slide3"> Slide 3 </section>
+            <section class="slide" data-anchor="slide4"> Slide 4 </section>
+        </section>
+    </div>
 </body>
-<!--  Bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-<!-- Syntax Highlighting -->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+            sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', '#4BBFC3'],
+            anchors:['firstPage', 'secondPage', 'thirdPage', 'fourthPage']
+        });
+    });
+</script>
 
 </html>

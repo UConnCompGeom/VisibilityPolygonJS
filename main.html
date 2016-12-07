@@ -8,27 +8,45 @@
     <title>Visibility Polygon</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Diplomata+SC|Julius+Sans+One|Old+Standard+TT|Roboto" rel="stylesheet">
+    <!-- FullPage -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css">
     <!-- BootStrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/main.css">
     <!-- Syntax Highlighting -->
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/atom-one-dark.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-
-    <div class="container-fluid">
+    <div id="fullpage">
         <!-- Home -->
-        <div class="row section" id="sec1">
+        <div class="section" id="sec1">
             <div class="centered">Visibility Polygon</div>
         </div>
 
         <!-- Intro/About/Theory -->
-        <div class="row section" id="sec2">
-            <div class="centered">Intro/About/Theory</div>
+        <div class="section">
+            <div class="row subsection">
+                <div class="secheader">About</div>
+            </div>
+            <div class="slide" data-anchor="slide1">
+                <p>
+                    A visibility polygon is formally defined as follows: Let <span class="mathy">O</span> be the set of obstacles Let <span class="mathy">V</span> be the set of points in the visibility polygon Let <span class="mathy">q</span> and <span class="mathy">p</span>                be members of <span class="mathy">V</span>
+                </p>
+                <p>
+                    The visibilitypolygon poylgon is the set of points <span class="mathy">V</span> in <span class="mathy">R^2</span> such that every point <span class="mathy">q</span> the segment <span class="mathy">pq</span>,doesn't intersect any obstacles
+                    in <span class="mathy">O</span>
+                </p>
+            </div>
+            <div class="slide" data-anchor="slide2"> Slide 2 </div>
+            <div class="slide" data-anchor="slide3"> Slide 3 </div>
+            <div class="slide" data-anchor="slide4"> Slide 4 </div>
         </div>
 
-        <div class="row section" id="sec3">
+        <div class="section">
 
             <div class="row subsection">
                 <div class="secheader">Uniform Ray Casting</div>
@@ -66,29 +84,24 @@
         </div>
 
         <!--Demo Enifficent Version -->
-        <div class="row section" id="sec4">
+        <div class="section">
             <div class="centered">Demo Inefficient Version</div>
         </div>
 
         <!-- Explain More Efficient Version -->
-        <div class="row section" id="sec1">
+        <div class="section">
             <div class="row subsection">
                 <div class="secheader">Vertex Ray Casting</div>
             </div>
             <div class="row subsection">
                 <div class="col-xs-6">
                     <p>
-                        Rather than casting a ray uniformly, we can just cast a ray to every point <code>p</code>
-                        in the obstacle set <code>O</code>. This should suffice, because any corners that obstruct
-                        vision occur at a point from an obstacle. Now we need to remove rays that intersect
-                        with an edge <code>e</code> in the edge set <span class="mathy">E</span> of <code>O</code>. This algorithm will not miss any obstacles, so you
-                        can call this one “correct”.
+                        Rather than casting a ray uniformly, we can just cast a ray to every point <code>p</code> in the obstacle set <code>O</code>. This should suffice, because any corners that obstruct vision occur at a point from an obstacle. Now
+                        we need to remove rays that intersect with an edge <code>e</code> in the edge set <span class="mathy">E</span> of <code>O</code>. This algorithm will not miss any obstacles, so you can call this one “correct”.
                     </p>
                     <p>
-                        Though this one is better than the former, it’s still not very efficient. As you can see,
-                        you need to iterate over the set of points <span class="mathy">P</span> of <code>O</code>, casting a ray to each of them. Then
-                        check all edges <span class="mathy">E</span> in <code>O</code> to see if ray intersects with any of them. Nevertheless, it’s
-                        still good enough for some applications like video games.
+                        Though this one is better than the former, it’s still not very efficient. As you can see, you need to iterate over the set of points <span class="mathy">P</span> of <code>O</code>, casting a ray to each of them. Then check all
+                        edges <span class="mathy">E</span> in <code>O</code> to see if ray intersects with any of them. Nevertheless, it’s still good enough for some applications like video games.
                     </p>
                     <h1>
                         Time Complexity <span class="tag tag-default"><span class="mathy">O(n^2)</span></span>
@@ -107,19 +120,18 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Poor implementation -->
-    <div class="row section" id="sec2">
-        <div class="embed-responsive section">
-            <iframe class="demo" src="vispoly.html"></iframe>
+        <!-- Better Implementation -->
+        <div class="section">
+            <div class="embed-responsive section">
+                <iframe class="demo" src="vispoly.html"></iframe>
+            </div>
         </div>
-    </div>
 
-    <!-- Better Implementation -->
-    <div class="row section" id="sec3">
-        <div class="centered">Closing Remarks</div>
-    </div>
+        <!-- Better Implementation -->
+        <div class="section">
+            <div class="centered">Closing Remarks</div>
+        </div>
     </div>
 </body>
 
@@ -129,6 +141,12 @@
 <!-- Syntax Highlighting -->
 <script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+            sectionsColor: ['#021C1E', '#004445', '#2C7873', '#6FB98F', '#021C1E', '#004445', '#2C7873', '#6FB98F'],
+            anchors: ['home', 'about', 'explainurc', 'urc', 'explainvrc', 'vrc', 'nothing', 'remark']
+        });
+    });
     hljs.initHighlightingOnLoad();
 </script>
 
