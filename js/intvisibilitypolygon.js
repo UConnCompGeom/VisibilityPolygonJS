@@ -433,9 +433,15 @@ function mousePressed() {
     } else {
       if (!outOfRange(src)) {
         secondPoint = new Point(src.x,src.y);
+        seg = new Segment(firstPoint, secondPoint);
+        for (l in lines) {
+            if (Math.abs(segcross(seg,lines[l])) == 1) {
+                return;
+            }
+        }
         points.push(firstPoint);
         points.push(secondPoint);
-        lines.push(new Segment(firstPoint,secondPoint));
+        lines.push(seg);
         firstPoint = null;
       }
     }
@@ -444,28 +450,45 @@ function mousePressed() {
       a = new Point(src.x,src.y);
       b = new Point(src.x+40,src.y+60);
       c = new Point(src.x-40,src.y+60);
+      sega = new Segment(a,b);
+      segb = new Segment(b,c);
+      segc = new Segment(c,a);
       if (!outOfRange(a) && !outOfRange(b) && !outOfRange(c)) {
+        for (l in lines) {
+            if (Math.abs(segcross(sega,lines[l])) == 1 || Math.abs(segcross(segb,lines[l])) == 1 || Math.abs(segcross(segc,lines[l])) == 1) {
+                return;
+            }
+        }
         points.push(a);
         points.push(b);
         points.push(c);
-        lines.push(new Segment(a,b));
-        lines.push(new Segment(b,c));
-        lines.push(new Segment(c,a));
+        lines.push(sega);
+        lines.push(segb);
+        lines.push(segc);
       }
   } else if (shapeToDraw.value() == "Square") { //square
       a = new Point(src.x,src.y);
       b = new Point(src.x+50,src.y);
       c = new Point(src.x+50,src.y+50);
       d = new Point(src.x,src.y+50);
+      sega = new Segment(a,b);
+      segb = new Segment(b,c);
+      segc = new Segment(c,d);
+      segd = new Segment(d,a);
       if (!outOfRange(a) && !outOfRange(b) && !outOfRange(c) && !outOfRange(d)) {
+        for (l in lines) {
+            if (Math.abs(segcross(sega,lines[l])) == 1 || Math.abs(segcross(segb,lines[l])) == 1 || Math.abs(segcross(segc,lines[l])) == 1 || Math.abs(segcross(segd,lines[l])) == 1) {
+                return;
+            }
+        }
         points.push(a);
         points.push(b);
         points.push(c);
         points.push(d);
-        lines.push(new Segment(a,b));
-        lines.push(new Segment(b,c));
-        lines.push(new Segment(c,d));
-        lines.push(new Segment(d,a));
+        lines.push(sega);
+        lines.push(segb);
+        lines.push(segc);
+        lines.push(segd);
       }
   } else if (shapeToDraw.value() == "Pentagon") { //pentagon
       a = new Point(src.x,src.y);
@@ -473,17 +496,27 @@ function mousePressed() {
       c = new Point(src.x-59,src.y+181);
       d = new Point(src.x+59,src.y+181);
       e = new Point(src.x+95,src.y+69);
+      sega = new Segment(a,b);
+      segb = new Segment(b,c);
+      segc = new Segment(c,d);
+      segd = new Segment(d,e);
+      sege = new Segment(e,a);
       if (!outOfRange(a) && !outOfRange(b) && !outOfRange(c) && !outOfRange(d) && !outOfRange(e)) {
+        for (l in lines) {
+            if (Math.abs(segcross(sega,lines[l])) == 1 || Math.abs(segcross(segb,lines[l])) == 1 || Math.abs(segcross(segc,lines[l])) == 1 || Math.abs(segcross(segd,lines[l])) == 1 || Math.abs(segcross(sege,lines[l])) == 1) {
+                return;
+            }
+        }
         points.push(a);
         points.push(b);
         points.push(c);
         points.push(d);
         points.push(e);
-        lines.push(new Segment(a,b));
-        lines.push(new Segment(b,c));
-        lines.push(new Segment(c,d));
-        lines.push(new Segment(d,e));
-        lines.push(new Segment(e,a));
+        lines.push(sega);
+        lines.push(segb);
+        lines.push(segc);
+        lines.push(segd);
+        lines.push(sege);
       }
   } else if (shapeToDraw.value() == "Arrow") { //arrow
       a = new Point(src.x,src.y);
@@ -493,7 +526,19 @@ function mousePressed() {
       e = new Point(src.x+90,src.y+15);
       f = new Point(src.x+50,src.y-20);
       g = new Point(src.x+50,src.y);
+      sega = new Segment(a,b);
+      segb = new Segment(b,c);
+      segc = new Segment(c,d);
+      segd = new Segment(d,e);
+      sege = new Segment(e,f);
+      segf = new Segment(f,g);
+      segg = new Segment(g,a);
       if (!outOfRange(a) && !outOfRange(b) && !outOfRange(c) && !outOfRange(d) && !outOfRange(e) && !outOfRange(f) && !outOfRange(g)) {
+        for (l in lines) {
+            if (Math.abs(segcross(sega,lines[l])) == 1 || Math.abs(segcross(segb,lines[l])) == 1 || Math.abs(segcross(segc,lines[l])) == 1 || Math.abs(segcross(segd,lines[l])) == 1 || Math.abs(segcross(sege,lines[l])) == 1 || Math.abs(segcross(segf,lines[l])) == 1 || Math.abs(segcross(segg,lines[l])) == 1) {
+                return;
+            }
+        }
         points.push(a);
         points.push(b);
         points.push(c);
@@ -501,13 +546,13 @@ function mousePressed() {
         points.push(e);
         points.push(f);
         points.push(g);
-        lines.push(new Segment(a,b));
-        lines.push(new Segment(b,c));
-        lines.push(new Segment(c,d));
-        lines.push(new Segment(d,e));
-        lines.push(new Segment(e,f));
-        lines.push(new Segment(f,g));
-        lines.push(new Segment(g,a));
+        lines.push(sega);
+        lines.push(segb);
+        lines.push(segc);
+        lines.push(segd);
+        lines.push(sege);
+        lines.push(segf);
+        lines.push(segg);
       }
   } else if (shapeToDraw.value() == "Star") { //star
       a = new Point(src.x,src.y);
@@ -520,7 +565,22 @@ function mousePressed() {
       h = new Point(src.x-20,src.y+35);
       i = new Point(src.x-35,src.y+20);
       j = new Point(src.x-10,src.y+20);
+      sega = new Segment(a,b);
+      segb = new Segment(b,c);
+      segc = new Segment(c,d);
+      segd = new Segment(d,e);
+      sege = new Segment(e,f);
+      segf = new Segment(f,g);
+      segg = new Segment(g,h);
+      segh = new Segment(h,i);
+      segi = new Segment(i,j);
+      segj = new Segment(j,a);
       if (!outOfRange(a) && !outOfRange(b) && !outOfRange(c) && !outOfRange(d) && !outOfRange(e) && !outOfRange(f) && !outOfRange(g) && !outOfRange(h) && !outOfRange(i) && !outOfRange(j)) {
+        for (l in lines) {
+            if (Math.abs(segcross(sega,lines[l])) == 1 || Math.abs(segcross(segb,lines[l])) == 1 || Math.abs(segcross(segc,lines[l])) == 1 || Math.abs(segcross(segd,lines[l])) == 1 || Math.abs(segcross(sege,lines[l])) == 1 || Math.abs(segcross(segf,lines[l])) == 1 || Math.abs(segcross(segg,lines[l])) == 1 || Math.abs(segcross(segh,lines[l])) == 1 || Math.abs(segcross(segi,lines[l])) == 1 || Math.abs(segcross(segj,lines[l])) == 1) {
+                return;
+            }
+        }
         points.push(a);
         points.push(b);
         points.push(c);
@@ -531,16 +591,16 @@ function mousePressed() {
         points.push(h);
         points.push(i);
         points.push(j);
-        lines.push(new Segment(a,b));
-        lines.push(new Segment(b,c));
-        lines.push(new Segment(c,d));
-        lines.push(new Segment(d,e));
-        lines.push(new Segment(e,f));
-        lines.push(new Segment(f,g));
-        lines.push(new Segment(g,h));
-        lines.push(new Segment(h,i));
-        lines.push(new Segment(i,j));
-        lines.push(new Segment(j,a));
+        lines.push(sega);
+        lines.push(segb);
+        lines.push(segc);
+        lines.push(segd);
+        lines.push(sege);
+        lines.push(segf);
+        lines.push(segg);
+        lines.push(segh);
+        lines.push(segi);
+        lines.push(segj);
       }
     }
   }
