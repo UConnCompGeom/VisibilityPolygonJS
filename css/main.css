@@ -1,5 +1,15 @@
 body {
-    font-family: 'Julius Sans One', sans-serif;
+    /*font-family: 'Julius Sans One', sans-serif;*/
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+    font-size: 1.5em;
 }
 
 .demo {
@@ -24,6 +34,9 @@ body {
 
 .secheader {
     font-size: 4em;
+    text-align: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 .subsection {
@@ -31,22 +44,37 @@ body {
     padding: 0;
 }
 
+span.symbol {
+    font-family: 'Diplomata SC', cursive;
+    font-weight: thin;
+
+}
+
+span.mathy {
+    font-family: 'Old Standard TT', serif;
+    font-weight: bolder;
+}
+
+code.codey {
+    font-size: 1.2em;
+}
+
 #sec1 {
     position: relative;
-    background: #FFD800;
+    background: #021C1E;
 }
 
 #sec2 {
     position: relative;
-    background: #587058;
+    background: #004445;
 }
 
 #sec3 {
     position: relative;
-    background: #587498;
+    background: #2C7873;
 }
 
 #sec4 {
     position: relative;
-    background: #E86850;
+    background: #6FB98F;
 }

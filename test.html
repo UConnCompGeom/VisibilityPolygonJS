@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Highlight Stuff</title>
-        <!-- Syntax Highlighting -->
-        <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/dark.min.css">
-        <script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
-        <script>
-            hljs.initHighlightingOnLoad();
-        </script>
-    </head>
-    <body>
-        <pre><code class="python">
+
+<head>
+    <meta charset="utf-8">
+    <title>Highlight Stuff</title>
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/dark.min.css">
+    <script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+<body>
+    <h1>
+        Time Complexity <span class="tag tag-default"><span class="mathy">O(E * r)</span></span>
+    </h1>
+    <span class="tag tag-default">Default</span>
+    <span class="tag tag-primary">Primary</span>
+    <span class="tag tag-success">Success</span>
+    <span class="tag tag-info">Info</span>
+    <span class="tag tag-warning">Warning</span>
+    <span class="tag tag-danger">Danger</span>
+    <pre><code class="python">
             URC(src, P, O, rays):
                 V = set()  # set of points in visibility polygon
                 v = None  # point in visibility polygon
@@ -20,5 +33,20 @@
                     if v is not None: V.add(v)
                 return V
         </code></pre>
-    </body>
+
+
+    <p>
+        Square root of two:
+        <math>
+            <msqrt>
+                <mn>2</mn>
+            </msqrt>
+        </math>
+    </p>
+
+</body>
+<!--  Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+<!-- Syntax Highlighting -->
+
 </html>

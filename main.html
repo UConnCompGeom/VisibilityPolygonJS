@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Visibility Polygon</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Diplomata+SC|Julius+Sans+One|Old+Standard+TT|Roboto" rel="stylesheet">
     <!-- BootStrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-    <!-- <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"> -->
     <!-- Syntax Highlighting -->
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/highlight.js/9.8.0/styles/atom-one-dark.min.css">
 </head>
@@ -35,18 +34,39 @@
                 <div class="secheader">Uniform Ray Casting</div>
             </div>
             <div class="row subsection">
-                <pre class="subsection"><code class="python">
-                    URC(src, P, O, rays):
-                        V = set()  # set of points in visibility polygon
-                        v = None  # point in visibility polygon
-                        for angle in range(0, 2*pi, rays):
-                            v = cast(src, S, angle)
-                            if v is not None: V.add(v)
-                        return V
-                </code></pre>
-            </div>
-            <div class="row subsection">
-                Stuff
+                <div class="col-xs-6">
+                    <p>
+                        The idea is to rotate about a point <code>v</code> from <code>0 - 2pi</code>
+                        casting rays out every <code>a</code> angels
+
+                        This algorithm doesn't always produce the correct result, and isn't optimal.
+                        The idea of increasing the number of <code>rays</code> (in turn reducing the size of the
+                        increment angle) will improve the result, but even then you can find errors as you
+                        see that small obstacles at a distance are missed. Ideally best angle would be
+                        infinitesimal so that a ray never misses any shape, but this
+                    </p>
+                    <p>
+                        Note, increasing the number of rays is expensive, because you need to check
+                        if any of the rays intersect with an edge <span class="mathy">E</span> from
+                        set of all obstacles <code>S</code>.The numbers of rays can grow exponentially,
+                        so we can say that the complexity is exponential in the number of rays.
+                    </p>
+                    <h1>
+                        Time Complexity <span class="tag tag-default"><span class="mathy">O(E*rays)</span></span>
+                    </h1>
+                </div>
+                <div class="col-xs-6">
+                    <pre class="subsection"><code class="python codey">
+            URC(src, P, O, rays):
+                V = set()  # set of points in visibility polygon (VP)
+                v = None  # point in VP
+                for a in frange(0, 2*pi, (2*pi)/rays):
+                    # get intersection point with obstacle in S
+                    v = cast(S, src, angel=a)
+                    if v is not None: V.add(v)
+                return V
+                    </code></pre>
+                </div>
             </div>
         </div>
 
@@ -74,10 +94,11 @@
 
 <!-- Load Scripts  -->
 <!--  Bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
 <!-- Syntax Highlighting -->
 <script src="http://cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
 </script>
+
 </html>
