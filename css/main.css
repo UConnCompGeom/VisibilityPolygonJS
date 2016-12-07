@@ -56,6 +56,12 @@ span.symbol {
 span.mathy {
     font-family: 'Old Standard TT', serif;
     font-weight: bolder;
+    color: #f7c681;
+}
+
+#mathytag {
+    font-family: 'Old Standard TT', serif;
+    font-weight: bolder;
 }
 
 code.codey {

@@ -38,6 +38,12 @@
             <div class="slide" data-anchor="slide1">
                 <div class="col-xs-10">
                     <p>
+                        In a 2D space with obstacles (i.e polygons) you have a source;
+                        which can be thought of as a light that illuminates all space it has direct
+                        sight of (i.e. it can't shine through obstacles). The polygon
+                        formed by the space that is illuminated is known as the Visibility Polygon.
+                    </p>
+                    <p>
                         A visibility polygon is formally defined as follows:
                         <br> Let <span class="mathy">O</span> be the set of obstacles
                         <br> Let <span class="mathy">V</span> be the set of points in the visibility polygon
@@ -127,7 +133,7 @@
                         so we can say that the complexity is exponential in the number of rays.
                     </p>
                     <h1>
-                        Time Complexity <span class="tag tag-default"><span class="mathy">O(E*rays)</span></span>
+                        Time Complexity <span class="tag tag-default"><span id="mathytag">O(E*rays)</span></span>
                     </h1>
                 </div>
                 <div class="col-xs-6">
@@ -166,7 +172,7 @@
                         edges <span class="mathy">E</span> in <code>O</code> to see if ray intersects with any of them. Nevertheless, it’s still good enough for some applications like video games.
                     </p>
                     <h1>
-                        Time Complexity <span class="tag tag-default"><span class="mathy">O(n^2)</span></span>
+                        Time Complexity <span class="tag tag-default"><span id="mathytag">O(n^2)</span></span>
                     </h1>
                 </div>
                 <div class="col-xs-6">
@@ -192,7 +198,21 @@
 
         <!-- Better Implementation -->
         <div class="section">
-            <div class="centered">Closing Remarks</div>
+            <div class="row subsection">
+                <div class="secheader">Closing Remarks</div>
+                <div class="col-xs-1">
+                    <!-- Padding -->
+                </div>
+                <div class="col-xs-10">
+                    <p>
+                        There are other algorithsm that are better, with <span class="mathy">O(nlogn)</span> complexity.
+                        There's a <a href="http://dl.acm.org/citation.cfm?doid=10515.10517">paper</a>  where the algorithm is described, but we didn't go about implementing it.
+                    </p>
+                </div>
+                <div class="col-xs-1">
+                    <!-- Padding -->
+                </div>
+            </div>
         </div>
     </div>
 </body>
