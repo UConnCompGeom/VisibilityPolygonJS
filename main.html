@@ -33,22 +33,17 @@
             <div class="row subsection">
                 <div class="secheader">Uniform Ray Casting</div>
             </div>
+
+            <!-- Explain Enefficent Version -->
             <div class="row subsection">
                 <div class="col-xs-6">
                     <p>
-                        The idea is to rotate about a point <code>v</code> from <code>0 - 2pi</code>
-                        casting rays out every <code>a</code> angels
-
-                        This algorithm doesn't always produce the correct result, and isn't optimal.
-                        The idea of increasing the number of <code>rays</code> (in turn reducing the size of the
-                        increment angle) will improve the result, but even then you can find errors as you
-                        see that small obstacles at a distance are missed. Ideally best angle would be
-                        infinitesimal so that a ray never misses any shape, but this
+                        The idea is to rotate about a point <code>v</code> from <code>0 - 2pi</code> casting rays out every <code>a</code> angels This algorithm doesn't always produce the correct result, and isn't optimal. The idea of increasing the number
+                        of <code>rays</code> (in turn reducing the size of the increment angle) will improve the result, but even then you can find errors as you see that small obstacles at a distance are missed. Ideally best angle would be infinitesimal
+                        so that a ray never misses any shape, but this
                     </p>
                     <p>
-                        Note, increasing the number of rays is expensive, because you need to check
-                        if any of the rays intersect with an edge <span class="mathy">E</span> from
-                        set of all obstacles <code>S</code>.The numbers of rays can grow exponentially,
+                        Note, increasing the number of rays is expensive, because you need to check if any of the rays intersect with an edge <span class="mathy">E</span> from set of all obstacles <code>S</code>.The numbers of rays can grow exponentially,
                         so we can say that the complexity is exponential in the number of rays.
                     </p>
                     <h1>
@@ -57,7 +52,7 @@
                 </div>
                 <div class="col-xs-6">
                     <pre class="subsection"><code class="python codey">
-            URC(src, P, O, rays):
+            URC(src, O, rays):
                 V = set()  # set of points in visibility polygon (VP)
                 v = None  # point in VP
                 for a in frange(0, 2*pi, (2*pi)/rays):
@@ -70,25 +65,61 @@
             </div>
         </div>
 
+        <!--Demo Enifficent Version -->
         <div class="row section" id="sec4">
             <div class="centered">Demo Inefficient Version</div>
         </div>
 
+        <!-- Explain More Efficient Version -->
         <div class="row section" id="sec1">
-            <div class="centered">Explain Algorithm of Better Version</div>
-        </div>
-
-        <!-- Poor implementation -->
-        <div class="row section" id="sec2">
-            <div class="embed-responsive section">
-                <iframe class="demo" src="vispoly.html"></iframe>
+            <div class="row subsection">
+                <div class="secheader">Vertex Ray Casting</div>
+            </div>
+            <div class="row subsection">
+                <div class="col-xs-6">
+                    <p>
+                        Rather than casting a ray uniformly, we can just cast a ray to every point <code>p</code>
+                        in the obstacle set <code>O</code>. This should suffice, because any corners that obstruct
+                        vision occur at a point from an obstacle. Now we need to remove rays that intersect
+                        with an edge <code>e</code> in the edge set <span class="mathy">E</span> of <code>O</code>. This algorithm will not miss any obstacles, so you
+                        can call this one “correct”.
+                    </p>
+                    <p>
+                        Though this one is better than the former, it’s still not very efficient. As you can see,
+                        you need to iterate over the set of points <span class="mathy">P</span> of <code>O</code>, casting a ray to each of them. Then
+                        check all edges <span class="mathy">E</span> in <code>O</code> to see if ray intersects with any of them. Nevertheless, it’s
+                        still good enough for some applications like video games.
+                    </p>
+                    <h1>
+                        Time Complexity <span class="tag tag-default"><span class="mathy">O(n^2)</span></span>
+                    </h1>
+                </div>
+                <div class="col-xs-6">
+                    <pre class="subsection"><code class="python codey">
+            VRC(src, O):
+                V = set()  # set of points in visibility polygon (VP)
+                for p in points(O):
+                    r = ray(src, p)
+                    for e in edges(S):
+                        if not intersect(r, e): V.add(p)
+                return V
+                    </code></pre>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Better Implementation -->
-        <div class="row section" id="sec3">
-            <div class="centered">Closing Remarks</div>
+    <!-- Poor implementation -->
+    <div class="row section" id="sec2">
+        <div class="embed-responsive section">
+            <iframe class="demo" src="vispoly.html"></iframe>
         </div>
+    </div>
+
+    <!-- Better Implementation -->
+    <div class="row section" id="sec3">
+        <div class="centered">Closing Remarks</div>
+    </div>
     </div>
 </body>
 
