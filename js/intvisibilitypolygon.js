@@ -37,7 +37,7 @@ function addBorderLines() {
     if (!intersected) {
       addPointToOrdering(borderPoints[b]);
     }
-  } 
+  }
 };
 
 function pointLessThan(a,b) {
@@ -321,10 +321,8 @@ var borderPoints;
 var sameLine;
 var numRays;
 var radio;
-var visibilityMode;
-var drawLineMode;
+var selectMode;
 var firstPoint;
-var drawShapeMode;
 var shapeToDraw;
 
 
@@ -334,16 +332,22 @@ var shapeToDraw;
 
 function setup() {
 //These will need to be replaced with user-input.  Also, whenever the user switches TO drawLineMode, it should set firstPoint to null.
-visibilityMode = true;
-drawShapeMode = false;
-drawLineMode = false;
-shapeToDraw = 5;
 firstPoint = null;
 
     createElement('p', "Which algorithm to use?");
     radio = createRadio("Via Angles");
+    selectMode = createSelect("");
+    shapeToDraw = createSelect();
     radio.option("Via Angles","1");
     radio.option("Via Points","2");
+    selectMode.option("Visibility Mode");
+    selectMode.option("Draw Shape");
+    selectMode.option("Draw Line");
+    shapeToDraw.option("Triangle");
+    shapeToDraw.option("Square");
+    shapeToDraw.option("Pentagon");
+    shapeToDraw.option("Arrow");
+    shapeToDraw.option("Star");
     createElement('p', "Number of rays (if Via Angles)");
     numRays = createInput('30');
 
@@ -398,7 +402,7 @@ function draw() {
     strokeWeight(1);
     lines[i].draw();
   }
-  if (visibilityMode && src.y >= 0) {
+  if (selectMode.value() == "Visibility Mode" && src.y >= 0) {
     if (radio.value() == "2") {
       drawRays(src);
       addBorderLines(src);
@@ -414,7 +418,7 @@ function outOfRange(p) {
 }
 
 function mousePressed() {
-  if (drawLineMode) {
+  if (selectMode.value() == "Draw Line") {
     if (firstPoint == null) {
       if (!outOfRange(src)) {
         firstPoint = new Point(src.x,src.y);
@@ -428,8 +432,8 @@ function mousePressed() {
         firstPoint = null;
       }
     }
-  } else if (drawShapeMode) {
-    if (shapeToDraw == 1) { //triangle
+} else if (selectMode.value() == "Draw Shape") {
+    if (shapeToDraw.value() == "Triangle") { //triangle
       a = new Point(src.x,src.y);
       b = new Point(src.x+40,src.y+60);
       c = new Point(src.x-40,src.y+60);
@@ -441,7 +445,7 @@ function mousePressed() {
         lines.push(new Segment(b,c));
         lines.push(new Segment(c,a));
       }
-    } else if (shapeToDraw == 2) { //square
+  } else if (shapeToDraw.value() == "Square") { //square
       a = new Point(src.x,src.y);
       b = new Point(src.x+50,src.y);
       c = new Point(src.x+50,src.y+50);
@@ -456,7 +460,7 @@ function mousePressed() {
         lines.push(new Segment(c,d));
         lines.push(new Segment(d,a));
       }
-    } else if (shapeToDraw == 3) { //pentagon
+  } else if (shapeToDraw.value() == "Pentagon") { //pentagon
       a = new Point(src.x,src.y);
       b = new Point(src.x-95,src.y+69);
       c = new Point(src.x-59,src.y+181);
@@ -474,7 +478,7 @@ function mousePressed() {
         lines.push(new Segment(d,e));
         lines.push(new Segment(e,a));
       }
-    } else if (shapeToDraw == 4) { //arrow
+  } else if (shapeToDraw.value() == "Arrow") { //arrow
       a = new Point(src.x,src.y);
       b = new Point(src.x,src.y+30);
       c = new Point(src.x+50,src.y+30);
@@ -498,7 +502,7 @@ function mousePressed() {
         lines.push(new Segment(f,g));
         lines.push(new Segment(g,a));
       }
-    } else if (shapeToDraw == 5) { //star
+  } else if (shapeToDraw.value() == "Star") { //star
       a = new Point(src.x,src.y);
       b = new Point(src.x+10,src.y+20);
       c = new Point(src.x+35,src.y+20);
